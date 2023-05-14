@@ -38,7 +38,7 @@ export default function SignUp() {
 
   useEffect(() => {
     loadingHandle(true);
-    axios.get(`http://localhost:5000/api/auth/get/`, {
+    axios.get(`https://docfinder360-backend.onrender.com/api/auth/get/`, {
         headers: {
             Accept: "application/json",
             accesstoken: `${cookies.token}`,
@@ -66,7 +66,7 @@ export default function SignUp() {
       onSubmit={(values)=>{
         //Handle Form Submission
         loadingHandle(true);
-        axios.post(`http://localhost:5000/api/user/post`,
+        axios.post(`https://docfinder360-backend.onrender.com/api/user/post`,
         {
           name: values.name,
           email: values.email,

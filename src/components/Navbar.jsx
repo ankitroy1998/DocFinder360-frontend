@@ -14,7 +14,7 @@ export default function Navbar() {
     //Logout function to call /logout for user route using axios
     // const handleLogout = () => {
     //     console.log("Logging Out");
-    //     axios.post(`http://localhost:5000/api/auth/logout`)
+    //     axios.post(`https://docfinder360-backend.onrender.com/api/auth/logout`)
     //     .then(res => {
     //         console.log(res.cookies.token);
     //         setCookies('token', "", { path: '/' });
