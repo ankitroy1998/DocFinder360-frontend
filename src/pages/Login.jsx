@@ -25,28 +25,28 @@ export default function Login() {
       .required('Password is required')
   });
 
-  useEffect(() => {
-    loadingHandle(true);
-        //Is Logged In?
-        axios.get(`https://docfinder360-backend.onrender.com/api/auth/get`, {
-            headers: {
-                Accept: "application/json",
-                accesstoken: `${cookies.token?cookies.token:""}`,
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "69420",
-                "Access-Control-Allow-Headers":
-                "Origin, Content-Type, Accept, accesstoken , ngrok-skip-browser-warning"
-            },
-        })
-        .then(res => {
-          //Return to Profile
-          navigate("/profile");
-          loadingHandle(false);
-        })
-        .catch(err => {
-          loadingHandle(false);
-          // console.log("Not Logged In");
-        })}, [])
+  // useEffect(() => {
+  //   loadingHandle(true);
+  //       //Is Logged In?
+  //       axios.get(`https://docfinder360-backend.onrender.com/api/auth/get`, {
+  //           headers: {
+  //               Accept: "application/json",
+  //               accesstoken: `${cookies.token?cookies.token:""}`,
+  //               "Content-Type": "application/json",
+  //               "ngrok-skip-browser-warning": "69420",
+  //               "Access-Control-Allow-Headers":
+  //               "Origin, Content-Type, Accept, accesstoken , ngrok-skip-browser-warning"
+  //           },
+  //       })
+  //       .then(res => {
+  //         //Return to Profile
+  //         navigate("/profile");
+  //         loadingHandle(false);
+  //       })
+  //       .catch(err => {
+  //         loadingHandle(false);
+  //         // console.log("Not Logged In");
+  //       })}, [])
 
   const [error, setError] = useState('');
 

@@ -16,7 +16,7 @@ function getNextDayOfWeek(dayOfWeek) {
     const currentDay = now.getDay(); // Sunday is 0, Monday is 1, etc.
   
     if (dayOfWeek === currentDay) {
-      // If the specified day is the current day, return the current date
+    // If the specified day is the current day, return the current date
     //   console.log(now.toDateString());
       return now.toDateString().split(" ");
     }

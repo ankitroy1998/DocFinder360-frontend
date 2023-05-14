@@ -36,27 +36,27 @@ export default function SignUp() {
       .required('Confirm Password is required')
   });
 
-  useEffect(() => {
-    loadingHandle(true);
-    axios.get(`http://localhost:5000/api/auth/get`, {
-        headers: {
-            Accept: "application/json",
-            accesstoken: `${cookies.token}`,
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "69420",
-            "Access-Control-Allow-Headers":
-            "Origin, Content-Type, Accept, accesstoken , ngrok-skip-browser-warning"
-        },
-    })
-    .then(res => {
-      //Return to Profile
-      loadingHandle(false);
-      navigate("/profile");
-    })
-    .catch(err => {
-      loadingHandle(false);
-      // console.log("Not Signed In");
-    })}, [])
+  // useEffect(() => {
+  //   loadingHandle(true);
+  //   axios.get(`https://docfinder360-backend.onrender.com/api/auth/get/`, {
+  //       headers: {
+  //           Accept: "application/json",
+  //           accesstoken: `${cookies.token}`,
+  //           "Content-Type": "application/json",
+  //           "ngrok-skip-browser-warning": "69420",
+  //           "Access-Control-Allow-Headers":
+  //           "Origin, Content-Type, Accept, accesstoken , ngrok-skip-browser-warning"
+  //       },
+  //   })
+  //   .then(res => {
+  //     //Return to Profile
+  //     loadingHandle(false);
+  //     navigate("/profile");
+  //   })
+  //   .catch(err => {
+  //     loadingHandle(false);
+  //     //console.log("Not Signed In");
+  //   })}, [])
 
   return (
     <div className='container mx-auto mt-0 flex flex-wrap justify-center h-[88vh] items-center '>
@@ -66,7 +66,7 @@ export default function SignUp() {
       onSubmit={(values)=>{
         //Handle Form Submission
         loadingHandle(true);
-        axios.post(`http://localhost:5000/api/user/post`,
+        axios.post(`https://docfinder360-backend.onrender.com/api/user/post`,
         {
           name: values.name,
           email: values.email,
@@ -77,13 +77,13 @@ export default function SignUp() {
         })
         .then(res => {
           //console.log(res);
-          setCookie('token', res?.data.token);
-          setCookie('username', res?.data.user.name);
-          setCookie('id', res?.data.user.id);
+          // setCookie('token', res?.data.token);
+          // setCookie('username', res?.data.user.name);
+          // setCookie('id', res?.data.user._id);
           loadingHandle(false);
-          if(res.data.status === 200)
+          // if(res.status === 200)
             //console.log("Success: ", localStorage.getItem('username'), " : ", localStorage.getItem('id'));
-            navigate("/profile");
+            navigate("/login");
         })
         .catch(err => {
           // console.log(err);

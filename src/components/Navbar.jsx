@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import logo from '../images/logo.png'
 import {Link} from 'react-router-dom'
 import { useCookies } from 'react-cookie';
-import axios from 'axios'
 import { useNavigate  } from "react-router-dom";
 
 export default function Navbar() {
@@ -12,19 +11,27 @@ export default function Navbar() {
     const navigate = useNavigate ();
 
     //Logout function to call /logout for user route using axios
+    // const handleLogout = () => {
+    //     console.log("Logging Out");
+    //     axios.post(`https://docfinder360-backend.onrender.com/api/auth/logout`)
+    //     .then(res => {
+    //         console.log(res.cookies.token);
+    //         setCookies('token', "", { path: '/' });
+    //         console.log(res.cookies.token);
+    //         navigate("/login");
+    //     })
+    //     .catch(err => {
+    //         console.log("Logged Out Error: ", err);
+    //     })
+    // }
+    
+    //Direct Logout from Frontend
     const handleLogout = () => {
         console.log("Logging Out");
-        axios.post(`http://localhost:5000/api/auth/logout`)
-        .then(res => {
-            console.log(res.cookies.token);
-            setCookies('token', "", { path: '/' });
-            console.log(res.cookies.token);
-            navigate("/login");
-        })
-        .catch(err => {
-            console.log("Logged Out Error: ", err);
-        })
+        setCookies('token', "", { path: '/' });
+        navigate("/login");
     }
+
 
     return (
     <nav className='bg-gradient-to-br from-cyan-300 to-blue-400'>

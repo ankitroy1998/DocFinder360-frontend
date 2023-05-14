@@ -11,7 +11,6 @@ export default function About() {
         <p className="text-lg text-justify font-semibold text-slate-500 max-[640px]:leading-6">
         We believe that access to quality healthcare is a fundamental right for everyone. That's why we've created a platform that makes finding and booking doctors across various hospitals simple and convenient. <br /><br /> Our team of dedicated professionals works tirelessly to ensure that our users have access to the best healthcare providers in their area. We're committed to providing an exceptional user experience, which is why we've designed our platform to be intuitive and easy to use. <br /><br /> Join us in our mission to democratize healthcare and improve the lives of people everywhere.
         </p>
-        {/* <button className="text-lg px-10 self-center mt-5 py-2 rounded-xl bg-gradient-to-tl from-blue-500 to-cyan-300 text-white font-semibold max-[640px]:text-2xl max-[640px]:px-12">Book Now</button> */}
       </div>
 
       <div className=" flex items-center justify-start max-[640px]:justify-center basis-1/2">
