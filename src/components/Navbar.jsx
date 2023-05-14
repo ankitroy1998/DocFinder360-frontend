@@ -3,6 +3,7 @@ import logo from '../images/logo.png'
 import {Link} from 'react-router-dom'
 import { useCookies } from 'react-cookie';
 import { useNavigate  } from "react-router-dom";
+import { useRef, useEffect } from 'react';
 
 export default function Navbar() {
 
@@ -13,7 +14,7 @@ export default function Navbar() {
     //Logout function to call /logout for user route using axios
     // const handleLogout = () => {
     //     console.log("Logging Out");
-    //     axios.post(`https://docfinder360-backend.onrender.com/api/auth/logout`)
+    //     axios.post(`http://localhost:5000/api/auth/logout`)
     //     .then(res => {
     //         console.log(res.cookies.token);
     //         setCookies('token', "", { path: '/' });
@@ -29,9 +30,23 @@ export default function Navbar() {
     const handleLogout = () => {
         console.log("Logging Out");
         setCookies('token', "", { path: '/' });
-        navigate("/login");
+        navigate("/");
     }
 
+    //Hide Hamburger menu on outside click
+    const ref = useRef();
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref]);
+    //-----
 
     return (
     <nav className='bg-gradient-to-br from-cyan-300 to-blue-400'>
@@ -54,13 +69,16 @@ export default function Navbar() {
                 isOpen && 
                     <div className='absolute top-20 right-2 w-[40%] rounded-xl shadow-lg bg-blue-300/50 backdrop-filter backdrop-blur-sm min-[641px]:hidden'>
                         <div className='container mx-auto flex flex-col items-center justify-center p-4'>
-                            <ul className='flex flex-col gap-4 items-center font-semibold text-lg'>
-                                {/* <Link onClick={()=>{setIsOpen(false)}} to="/" className='text-blue-600 hover:text-blue-800'>Home</Link> */}
-                                {/* <Link onClick={()=>{setIsOpen(false)}} href="/About" className='text-blue-600 hover:text-blue-800'>About Us</Link> */}
+                            <ul ref={ref} className='flex flex-col gap-4 items-center font-semibold text-lg'>
+                                {/* Add a profile button if user is logged in */}
+                                {cookies.token &&
+                                    <Link onClick={()=>{setIsOpen(false)}} to="/profile" className='text-blue-600 hover:text-blue-800'>Profile</Link>
+                                }
+                                {/* Render Signup and Login buttons if user is not logged in */}
                                 {!cookies.token?<>
                                 <Link onClick={()=>{setIsOpen(false)}} to="/signup" className='text-blue-600 hover:text-blue-800'>SignUp</Link>
                                 <Link onClick={()=>{setIsOpen(false)}} to="/login" className='text-blue-600 hover:text-blue-800'>Login</Link>
-                                </>:<li onClick={handleLogout} className='text-blue-600 hover:text-blue-800'>Logout</li>}
+                                </>:<li onClick={handleLogout} className='text-blue-600 hover:text-blue-800 cursor-pointer'>Logout</li>}
                             </ul>
                         </div>
                     </div>
@@ -69,8 +87,11 @@ export default function Navbar() {
             {/* options for larger devices */}
             <div className='max-[640px]:hidden p-4'>
                 <ul className='flex flex-row cursor-pointer gap-4 items-center font-semibold text-lg'>
-                    {/* <Link to="/" className='text-white hover:text-blue-800'>Home</Link> */}
-                    {/* <a href="#About" className='text-white hover:text-blue-800'>About Us</a> */}
+                    {/* Add a profile button if user is logged in */}
+                    {cookies.token &&
+                    <Link onClick={()=>{setIsOpen(false)}} to="/profile" className='text-blue-600 hover:text-white hover:bg-blue-500/80 bg-blue-100/70 px-4 py-1 rounded-full shadow-lg'>Profile</Link>
+                    }
+                    {/* Render Signup and Login buttons if user is not logged in */}
                     {!cookies.token?<>
                         <Link to={"/signup"} className='text-blue-600 hover:text-white hover:bg-blue-500/80 bg-blue-100/70 px-4 py-1 rounded-full shadow-lg'>SignUp</Link>
                         <Link to={"/login"} className='text-blue-600 hover:text-white hover:bg-blue-500/80 bg-blue-100/70 px-4 py-1 rounded-full shadow-lg'>Login</Link>

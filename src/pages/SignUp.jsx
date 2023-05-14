@@ -38,7 +38,7 @@ export default function SignUp() {
 
   useEffect(() => {
     loadingHandle(true);
-    axios.get(`https://docfinder360-backend.onrender.com/api/auth/get/`, {
+    axios.get(`http://localhost:5000/api/auth/get/`, {
         headers: {
             Accept: "application/json",
             accesstoken: `${cookies.token}`,
@@ -66,7 +66,7 @@ export default function SignUp() {
       onSubmit={(values)=>{
         //Handle Form Submission
         loadingHandle(true);
-        axios.post(`https://docfinder360-backend.onrender.com/api/user/post`,
+        axios.post(`http://localhost:5000/api/user/post`,
         {
           name: values.name,
           email: values.email,
@@ -76,13 +76,11 @@ export default function SignUp() {
           bookings: []
         })
         .then(res => {
-          //console.log(res);
           // setCookie('token', res?.data.token);
           // setCookie('username', res?.data.user.name);
           // setCookie('id', res?.data.user._id);
           loadingHandle(false);
           // if(res.status === 200)
-            //console.log("Success: ", localStorage.getItem('username'), " : ", localStorage.getItem('id'));
             navigate("/login");
         })
         .catch(err => {

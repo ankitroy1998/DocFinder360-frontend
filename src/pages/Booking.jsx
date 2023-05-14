@@ -15,7 +15,7 @@ export default function Booking() {
   const [details, setDetails] = useState(null);
 
   useEffect(()=>{
-    axios.get('https://docfinder360-backend.onrender.com/api/doctor/get')
+    axios.get('http://localhost:5000/api/doctor/get')
     .then((response)=>{
       setDoctorList(response.data);
     })
