@@ -67,9 +67,9 @@ export default function Navbar() {
 
             {
                 isOpen && 
-                    <div className='absolute top-20 right-2 w-[40%] rounded-xl shadow-lg bg-blue-300/50 backdrop-filter backdrop-blur-sm min-[641px]:hidden'>
+                    <div ref={ref} className='absolute top-20 right-2 w-[40%] rounded-xl shadow-lg bg-blue-300/50 backdrop-filter backdrop-blur-sm min-[641px]:hidden'>
                         <div className='container mx-auto flex flex-col items-center justify-center p-4'>
-                            <ul ref={ref} className='flex flex-col gap-4 items-center font-semibold text-lg'>
+                            <ul className='flex flex-col gap-4 items-center font-semibold text-lg'>
                                 {/* Add a profile button if user is logged in */}
                                 {cookies.token &&
                                     <Link onClick={()=>{setIsOpen(false)}} to="/profile" className='text-blue-600 hover:text-blue-800'>Profile</Link>
