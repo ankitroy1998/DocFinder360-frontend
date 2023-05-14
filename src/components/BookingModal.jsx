@@ -46,7 +46,7 @@ export default function BookingModal(props) {
     console.log("selected time: ", selectedTime);
     console.log("user: ", cookies.id);
 
-    axios.put("http://localhost:5000/api/booking/put/", {
+    axios.put("https://docfinder360-backend.onrender.com/api/booking/put/", {
         doctorId: props.details._id,
         date: selectedDay,
         time: selectedTime,

@@ -19,7 +19,7 @@ export default function Profile() {
 
   useEffect(() => {
     //Get Doctors
-    axios.get(`http://localhost:5000/api/doctor/get`)
+    axios.get(`https://docfinder360-backend.onrender.com/api/doctor/get`)
     .then((res) => {
       setDoctors(res.data);
     }
@@ -55,7 +55,7 @@ export default function Profile() {
     } else {
       loadingHandle(true);
       axios
-        .get(`http://localhost:5000/api/auth/get`, {
+        .get(`https://docfinder360-backend.onrender.com/api/auth/get`, {
           headers: {
             Accept: "application/json",
             accesstoken: `${cookies[0].token}`,
@@ -68,7 +68,7 @@ export default function Profile() {
         .then((res) => {
           // console.log("Logged Status Success: ", res);
           axios
-            .get(`http://localhost:5000/api/user/get/${cookies[0].id}`, {
+            .get(`https://docfinder360-backend.onrender.com/api/user/get/${cookies[0].id}`, {
               headers: {
                 Accept: "application/json",
                 accesstoken: `${cookies[0].token}`,
@@ -100,7 +100,7 @@ export default function Profile() {
   //Get Bookings
   const [bookings, setBookings] = useState([]);
   useEffect(()=>{
-    axios.get(`http://localhost:5000/api/booking/get/${cookies[0].id}`)
+    axios.get(`https://docfinder360-backend.onrender.com/api/booking/get/${cookies[0].id}`)
     .then((res)=>{
       setBookings(res.data);
     })
@@ -139,7 +139,7 @@ export default function Profile() {
           .then((data) => {
             console.log("Uploaded to Cloudinary");
             console.log(data.secure_url);
-            axios.put(`http://localhost:5000/users/${userData.id}/image`, { newImage: data.secure_url.toString() })
+            axios.put(`https://docfinder360-backend.onrender.com/users/${userData.id}/image`, { newImage: data.secure_url.toString() })
             .then((res) => {
                 console.log(res.data);
                 loadingHandle(false);

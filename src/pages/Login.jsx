@@ -28,7 +28,7 @@ export default function Login() {
   useEffect(() => {
     loadingHandle(true);
         //Is Logged In?
-        axios.get(`http://localhost:5000/api/auth/get`, {
+        axios.get(`https://docfinder360-backend.onrender.com/api/auth/get`, {
             headers: {
                 Accept: "application/json",
                 accesstoken: `${cookies.token?cookies.token:""}`,
@@ -58,7 +58,7 @@ export default function Login() {
       onSubmit={(values)=>{
         loadingHandle(true);
         //User Login Post
-        axios.post(`http://localhost:5000/api/auth/post/`, values)
+        axios.post(`https://docfinder360-backend.onrender.com/api/auth/post/`, values)
         .then(res => {
           setCookie('token', res.data.token);
           setCookie('username', res.data.user.name);
