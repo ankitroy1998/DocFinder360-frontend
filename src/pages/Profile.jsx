@@ -139,11 +139,12 @@ export default function Profile() {
           .then((data) => {
             console.log("Uploaded to Cloudinary");
             console.log(data.secure_url);
-            axios.put(`https://docfinder360-backend.onrender.com/users/${userData.id}/image`, { newImage: data.secure_url.toString() })
+            axios.put(`https://docfinder360-backend.onrender.com/api/user/update/${cookies[0].id}`, { newImage: data.secure_url.toString() })
             .then((res) => {
                 console.log(res.data);
                 loadingHandle(false);
                 toggleModal();
+                window.location.reload();
             }
             ).catch(
                 (err) => {

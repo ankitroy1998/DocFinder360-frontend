@@ -3,12 +3,12 @@ import {useCookies} from 'react-cookie';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {Elements} from '@stripe/react-stripe-js';
-// import {loadStripe} from '@stripe/stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 import PaymentForm from '../pages/PaymentForm';
 
 
-// const PUBLIC_KEY="pk_test_51N4jM3SAU7pPO0d0DjR8YnTnb0VIhCw6VSKwONE7XNW79TEK4BIFdGf9HimlN557eFC38DHVBEVCu3wzudlbIeyb00MJuGZorq"
-// const stripeTestPromise = loadStripe(PUBLIC_KEY);
+const PUBLIC_KEY="pk_test_51N4jM3SAU7pPO0d0DjR8YnTnb0VIhCw6VSKwONE7XNW79TEK4BIFdGf9HimlN557eFC38DHVBEVCu3wzudlbIeyb00MJuGZorq"
+const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
 
 function getNextDayOfWeek(dayOfWeek) {
@@ -108,14 +108,14 @@ export default function BookingModal(props) {
                 <button onClick={confirmBooking} className='text-xl bg-blue-500 py-2 px-4 font-semibold hover:bg-blue-400 text-blue-100 shadow-lg rounded-lg '>Confirm Booking</button>
             </div>
             
-            {/* {
+                {
                     proceedToPayment &&
                     <div className='border-blue-400 bg-gradient-to-tl from-blue-900 to bg-slate-950 shadow-xl mt-10 rounded-lg border-2 lg:mx-auto lg:w-[50%] h-56 p-8 m-10'>
                     <Elements stripe={stripeTestPromise}>
                     <PaymentForm/>
                     </Elements>
                     </div>
-                } */}
+                }
             
         </div>
     </div>
