@@ -48,7 +48,7 @@ export default function PaymentForm() {
     if(!error) {
       try {
         const {id} = paymentMethod
-        const response = await axios.post('https://docfinder360-backend.onrender.com/api/payment/post', {
+        const response = await axios.post('http://localhost:5000/api/payment/post', {
           amount: 500,
           id
         })

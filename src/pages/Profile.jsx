@@ -19,7 +19,7 @@ export default function Profile() {
 
   useEffect(() => {
     //Get Doctors
-    axios.get(`https://docfinder360-backend.onrender.com/api/doctor/get`)
+    axios.get(`http://localhost:5000/api/doctor/get`)
     .then((res) => {
       setDoctors(res.data);
     }
@@ -31,20 +31,17 @@ export default function Profile() {
   }, []);
 
   function getDoctorName(id) {
-    const doctor = doctors?.find((doctor) => doctor.id === id);
-    console.log("Doctor Name", doctor ? doctor.name : '');
+    const doctor = doctors?.find((doctor) => doctor._id === id);
     return doctor ? doctor.name : '';
   }
 
   function getDoctorHospital(id) {
-    const doctor = doctors?.find((doctor) => doctor.id === id);
-    console.log("Doctor Hospital", doctor ? doctor.hospital : '');
+    const doctor = doctors?.find((doctor) => doctor._id === id);
     return doctor ? doctor.hospital : '';
   }
 
   function getDoctorAddress(id) {
-    const doctor = doctors?.find((doctor) => doctor.id === id);
-    console.log("Doctor Hospital", doctor ? doctor.address : '');
+    const doctor = doctors?.find((doctor) => doctor._id === id);
     return doctor ? doctor.address : '';
   }
 
@@ -55,7 +52,7 @@ export default function Profile() {
     } else {
       loadingHandle(true);
       axios
-        .get(`https://docfinder360-backend.onrender.com/api/auth/get`, {
+        .get(`http://localhost:5000/api/auth/get`, {
           headers: {
             Accept: "application/json",
             accesstoken: `${cookies[0].token}`,
@@ -68,7 +65,7 @@ export default function Profile() {
         .then((res) => {
           // console.log("Logged Status Success: ", res);
           axios
-            .get(`https://docfinder360-backend.onrender.com/api/user/get/${cookies[0].id}`, {
+            .get(`http://localhost:5000/api/user/get/${cookies[0].id}`, {
               headers: {
                 Accept: "application/json",
                 accesstoken: `${cookies[0].token}`,
@@ -100,9 +97,10 @@ export default function Profile() {
   //Get Bookings
   const [bookings, setBookings] = useState([]);
   useEffect(()=>{
-    axios.get(`https://docfinder360-backend.onrender.com/api/booking/get/${cookies[0].id}`)
+    axios.get(`http://localhost:5000/api/booking/get/${cookies[0].id}`)
     .then((res)=>{
       setBookings(res.data);
+      console.log(res.data);
     })
     .catch((err)=>{
       console.log(err);
@@ -139,7 +137,7 @@ export default function Profile() {
           .then((data) => {
             console.log("Uploaded to Cloudinary");
             console.log(data.secure_url);
-            axios.put(`https://docfinder360-backend.onrender.com/api/user/update/${cookies[0].id}`, { newImage: data.secure_url.toString() })
+            axios.put(`http://localhost:5000/api/user/update/${cookies[0].id}`, { newImage: data.secure_url.toString() })
             .then((res) => {
                 console.log(res.data);
                 loadingHandle(false);
@@ -275,37 +273,23 @@ export default function Profile() {
               {(bookings?.length > 0) &&<div className="flex flex-col iems-center justify-center w-full">
                 <Link to="/booking" className="text-lg w-[80%] mx-auto mb-10 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out px-10  py-2 rounded-xl bg-gradient-to-tl from-blue-500 to-cyan-300 text-white font-semibold max-[640px]:text-2xl text-center max-[640px]:px-12">Book Appointment</Link>
               </div>}
-              <div className="flex flex-col-reverse items-center justify-center">
-            {bookings?.length > 0 ? (
-              bookings?.map((booking, index) => (
-                <div key={index} className="bg-white flex flex-col shadow-xl p-4 m-2 rounded-xl border-4 border-x-0 border-b-0 border-t-blue-400">
-                  <h2 className="">
-                    <span className="text-blue-500 font-bold">Booking ID:</span> {booking.id}
-                  </h2>
-                  <h2 className="">
-                    <span className="text-blue-500 font-bold">Doctor Name:</span> {getDoctorName(booking.doctorId)}
-                  </h2>
-                  <h2 className="">
-                    <span className="text-blue-500 font-bold">Appointment on:</span> {booking.time}, {booking.date}
-                  </h2>
-                  <h2 className="">
-                    <span className="text-blue-500 font-bold">Hospital:</span> {getDoctorHospital(booking.doctorId)}
-                  </h2>
-                  <h2 className="">
-                    <span className="text-blue-500 font-bold">Visit Location:</span> {getDoctorAddress(booking.doctorId)}
-                  </h2>
-                  <h2 className="">
-                    <span className="text-blue-500 font-bold">Doctor Charge:</span> Rs. 500/-
-                  </h2>
-                </div>
-              ))
-            ) : (
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="text-2xl font-bold text-blue-400 max-[640px]: text-center max-[640px]:mt-12 mb-5">No Bookings Yet!</h1>
-                <Link to="/booking" className="text-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out px-10  py-2 rounded-xl bg-gradient-to-tl from-blue-500 to-cyan-300 text-white font-semibold max-[640px]:text-2xl text-center max-[640px]:px-12">Book Appointment</Link>
-              </div>
-            )}
-          </div>
+              <div className="flex flex-col-reverse items-center justify-center">{bookings?.length > 0 ? (
+                bookings?.map((booking,index) =>
+                <>
+                  <div className="bg-white flex flex-col shadow-xl p-4 m-2 rounded-xl border-4 border-x-0 border-b-0 border-t-blue-400">
+                      <h2 className=""> <span className="text-blue-500 font-bold">Booking ID:</span> {booking._id}</h2>
+                      <h2 className=""> <span className="text-blue-500 font-bold">Doctor Name:</span> {getDoctorName(booking.doctorId)}</h2>
+                      <h2 className=""> <span className="text-blue-500 font-bold">Appointment on:</span> {booking.time}, {booking.date}</h2>
+                      <h2 className=""> <span className="text-blue-500 font-bold">Hospital:</span> {getDoctorHospital(booking.doctorId)}</h2>
+                      <h2 className=""> <span className="text-blue-500 font-bold">Visit Location:</span> {getDoctorAddress(booking.doctorId)}</h2>
+                      <h2 className=""> <span className="text-blue-500 font-bold">Doctor Charge:</span> Rs. 500/-</h2>
+                  </div>
+                </>)
+              ) : (<div className="flex flex-col items-center justify-center">
+                    <h1 className="text-2xl font-bold text-blue-400 max-[640px]: text-center max-[640px]:mt-12 mb-5">No Bookings Yet!</h1>
+                    <Link to="/booking" className="text-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out px-10  py-2 rounded-xl bg-gradient-to-tl from-blue-500 to-cyan-300 text-white font-semibold max-[640px]:text-2xl text-center max-[640px]:px-12">Book Appointment</Link>
+                  </div>
+              )}</div>
               
             </div>
           </>
