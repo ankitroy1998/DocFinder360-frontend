@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Error from './pages/Error';
 import Booking from './pages/Booking';
-import Payments from './pages/PaymentForm';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="*" element={<Error />} />
         <Route exact path="/" element={<Home />} />
       </Routes>
